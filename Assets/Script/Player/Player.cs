@@ -5,7 +5,6 @@ public class Player : MonoBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float playerSpeed = 5.0f;
-    [SerializeField] private float jumpHeight = 1.5f;
     [SerializeField] private float gravityValue = -9.81f;
 
     [Header("Camera Settings")]

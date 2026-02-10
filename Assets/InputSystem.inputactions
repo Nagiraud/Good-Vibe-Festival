@@ -177,6 +177,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "d742d6eb-83e5-4157-a222-160c54703c10",
+            "actions": [
+                {
+                    "name": "Quest",
+                    "type": "Button",
+                    "id": "dc7c9362-3d6f-4477-bc17-baaca1d06d0c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5dee281d-1bb8-4247-9b26-cea088f4f198",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

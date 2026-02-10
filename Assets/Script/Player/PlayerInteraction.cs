@@ -9,7 +9,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InputActionReference takePicture;
 
     [Header("Canvas Photo")]
-    [SerializeField] private Canvas canvasCamera;
+    [SerializeField] private GameObject canvasCamera;
 
     [SerializeField] private QuestManager quest;
 
@@ -54,21 +54,25 @@ public class PlayerInteraction : MonoBehaviour
     private void CheckElement()
     {
         Collider[] target = Physics.OverlapSphere(transform.position, 10); // tout les objets à moins de DistaceVision du joueur
+        
         foreach (Collider col in target)
         {
-            if (col.tag != "Untagged")
-            {
-                float signedAngle = Vector3.Angle( // angle du joueur par rapport au centre de vision
-                transform.forward,
-                col.transform.position - transform.position);
 
-                // + Raycast pour vérifié que rien ne bloque la vue
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, (col.transform.position - transform.position), out hit, 10) && Mathf.Abs(signedAngle) < 90 / 2)
-                {
-                    Debug.Log(col.tag);
-                }
+            if (col.tag == "Untagged") continue;
+            
+            float signedAngle = Vector3.Angle( // angle du joueur par rapport au centre de vision
+            transform.forward,
+            col.transform.position - transform.position);
+
+            // + Raycast pour vérifié que rien ne bloque la vue
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, (col.transform.position - transform.position), out hit, 10) && Mathf.Abs(signedAngle) < 90 / 2)
+            {
+                Debug.Log(col.tag);
+                //TODO 
+                // Vérifié les quétes
             }
+            
         }
     }
 
