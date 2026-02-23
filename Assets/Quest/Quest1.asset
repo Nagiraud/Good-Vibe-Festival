@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a77a382f990e154c88e54b51510af15, type: 3}
   m_Name: Quest1
   m_EditorClassIdentifier: Assembly-CSharp::PhotoQuest
-  QuestName: thename
-  QuestDescription: Found the first object
-  TagToSearch:
-  - Object1
+  IsCompleted: 0
+  QuestName: Musique !
+  QuestDescription: Trouver le tag "music"
+  TagToSearch: tag_music
   TimeNeeded: 0
   Recompense: 5

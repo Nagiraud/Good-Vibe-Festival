@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a77a382f990e154c88e54b51510af15, type: 3}
   m_Name: Quest2
   m_EditorClassIdentifier: Assembly-CSharp::PhotoQuest
+  IsCompleted: 0
   QuestName: Any Tag
   QuestDescription: N'importe quelle tag
-  TagToSearch:
-  - Tag
+  TagToSearch: tag_random
   TimeNeeded: 0
   Recompense: 0

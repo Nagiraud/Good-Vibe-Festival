@@ -3,13 +3,11 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance; // Singleton
-
-    [SerializeField] private PhotoQuest QuestTest; // Liste de quests
     //[SerializeField] private PhotoQuest quest;
     [SerializeField] private PhotoQuest[] QuestList; // Liste de quests
 
@@ -46,7 +44,6 @@ public class QuestManager : MonoBehaviour
         CanvasQuest.gameObject.SetActive(false);
         SwitchUI.action.Enable();
         SwitchUI.action.performed += QuestUi;
-        addQuest(QuestTest);
     }
 
     private void QuestUi(InputAction.CallbackContext _ctx)
@@ -60,17 +57,17 @@ public class QuestManager : MonoBehaviour
         UpdateUI();
     }
 
-
-    void Update()
+    private void clearUI()
     {
-        
+        foreach (Transform child in ScrollViewQuest.transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
-
     private void UpdateUI()
     {
-
-        Debug.Log(QuestList.Length);
-        for (int i = 0; i <= QuestList.Length; i++)
+        clearUI();
+        for (int i = 0; i < QuestList.Length; i++)
         {
             Debug.Log("loop " + i);
             Debug.Log(QuestList[i].name);
@@ -83,6 +80,11 @@ public class QuestManager : MonoBehaviour
             TMP_Text descText = NewEntry.transform.Find("Description").GetComponent<TMP_Text>();
             nomText.text = QuestList[i].QuestName;
             descText.text = QuestList[i].QuestDescription;
+
+            Toggle QuestComplet = NewEntry.transform.Find("Completed").GetComponent<Toggle>();
+            QuestComplet.isOn = QuestList[i].IsCompleted;
+
+
         }
     }
 
@@ -90,8 +92,15 @@ public class QuestManager : MonoBehaviour
     {
         Debug.Log("adding quest");
     }
-    public void verifyPhoto()
+    public void verifyPhoto(string tag)
     {
-
+        for (int i = 0; i < QuestList.Length; i++)
+        {
+            if (QuestList[i].TagToSearch == tag)
+            {
+                QuestList[i].IsCompleted = true;
+                UpdateUI();
+            }
+        }
     }
 }

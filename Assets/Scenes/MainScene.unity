@@ -4851,7 +4851,7 @@ MonoBehaviour:
   SwitchMode: {fileID: -6076925765633733910, guid: 7ea0436c63bc4da479925dcd9db61061, type: 3}
   takePicture: {fileID: -486677034837876276, guid: 7ea0436c63bc4da479925dcd9db61061, type: 3}
   canvasCamera: {fileID: 163600380}
-  quest: {fileID: 0}
+  quest: {fileID: 1884257936}
 --- !u!1001 &1312721013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6997,7 +6997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a8f272c691e6c469cfea7cda8c1e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QuestManager
-  QuestTest: {fileID: 11400000, guid: 0161b18777caf67498f22ffcb9057bb6, type: 2}
   QuestList:
   - {fileID: 11400000, guid: 0161b18777caf67498f22ffcb9057bb6, type: 2}
   - {fileID: 11400000, guid: fd81bc74506e1d1449d4fc8a3e12747d, type: 2}

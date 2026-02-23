@@ -6,7 +6,7 @@ public class PhotoQuest : ScriptableObject
     public bool IsCompleted;
     public string QuestName;
     public string QuestDescription;
-    public string[] TagToSearch;
+    public string TagToSearch;
     public int TimeNeeded;
     public int Recompense;
 }

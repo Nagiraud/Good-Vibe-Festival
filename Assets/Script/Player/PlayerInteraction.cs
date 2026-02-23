@@ -46,7 +46,6 @@ public class PlayerInteraction : MonoBehaviour
         
         if(IsCameraActive)
         {
-            Debug.Log("take picture");
             CheckElement();
         }
     }
@@ -69,8 +68,8 @@ public class PlayerInteraction : MonoBehaviour
             if (Physics.Raycast(transform.position, (col.transform.position - transform.position), out hit, 10) && Mathf.Abs(signedAngle) < 90 / 2)
             {
                 Debug.Log(col.tag);
-                //TODO 
-                // Vérifié les quétes
+                // Vérification si le tag apparait dans une quetes
+                quest.verifyPhoto(col.tag);
             }
             
         }
