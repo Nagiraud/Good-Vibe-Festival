@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 1058556038379161208}
   - component: {fileID: 6169413143223116835}
   - component: {fileID: -541978916450703739}
+  - component: {fileID: -554212057362407732}
   m_Layer: 0
   m_Name: casual_Male_G
   m_TagString: Untagged
@@ -236,6 +237,11 @@ MonoBehaviour:
   - {fileID: 1904036164091103224, guid: ab565b1de5a9dfb47a1b5326e9c39f41, type: 3}
   - {fileID: 3303937894043470729, guid: cb820cf28a216a74aaf49c84606b8a83, type: 3}
   speed: 2
+  currentType: 
+  typeNPC:
+  - Idle
+  - danse
+  - Flee
 --- !u!195 &-541978916450703739
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -258,6 +264,35 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-554212057362407732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616406060653692748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0038c16c34866b4f9e25c9c0dc0f7e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Behavior::Unity.Behavior.BehaviorGraphAgent
+  m_Graph: {fileID: 3887528693122473213, guid: 97ba0382d76572543aca20528208fee5, type: 2}
+  m_BlackboardVariableOverridesList:
+  - rid: 8152027245328990481
+  m_OriginalGraph: {fileID: 0}
+  m_IsInitialised: 0
+  m_IsStarted: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 8152027245328990481
+      type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 1
+          m_Value1: 0
+        Name: Self
+        m_Value: {fileID: 1616406060653692748}
 --- !u!1 &1719302345640664642
 GameObject:
   m_ObjectHideFlags: 0

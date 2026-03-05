@@ -12,6 +12,16 @@ public class PeopleController : MonoBehaviour
     public float speed;
     NavMeshAgent navAgent;
 
+    // Comportement
+    [Header("Comportement actuel")]
+    public string currentType;
+    // Énumération des comportements possibles
+    public string[] typeNPC =
+    {
+        "Idle",               // Reste immobile
+        "dance",             // Patrouille entre des points
+        "Flee"              // Fuit le joueur
+    };
     Animator animator;
 
     //private string[] ListeRoutine = ["Stadium", "Building","IntoStadium","Concert1Center","Concert1TopLeft", "Concert1BottomLeft", "Concert1BottomRight", "Concert1TopLeft", "GasStation", "ClothStore", "FriedChicken", "GiftShop", "MusicStore", "FruitCorner", "FastFood", "CoffeeShop", "Bar", "BookStore", "Bakery", "Pizza", "StrangeCorner", "Concert2"];
@@ -58,6 +68,7 @@ public class PeopleController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         pathChoosen = Random.Range(0, listPath.Count);
+        currentType = typeNPC[Random.Range(0, 3)];
 
         StartCoroutine(FollowPath());
     }

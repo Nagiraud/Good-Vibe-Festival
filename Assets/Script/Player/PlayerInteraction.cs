@@ -1,51 +1,74 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Input Actions")]
-    [SerializeField] private InputActionReference SwitchMode;
+    [SerializeField] private InputActionReference switchMode;
     [SerializeField] private InputActionReference takePicture;
+    [SerializeField] private InputActionReference openGallery;
 
+    // Prise Photo
     [Header("Canvas Photo")]
     [SerializeField] private GameObject canvasCamera;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private Camera photoCamera;
+    [SerializeField] private RenderTexture renderTexture;
 
+    [Header("Canvas Gallerie Photo")]
+    public PictureGallery gallery;
+
+    [Header("Quêtes")]
     [SerializeField] private QuestManager quest;
 
-    private bool IsCameraActive = false ;
+    private bool isCameraActive = false ;
+
+
+    public MonoBehaviour playerCameraScript;
 
     private void OnEnable()
     {
+        mainCamera.enabled = true;
         canvasCamera.gameObject.SetActive(false);
-        SwitchMode.action.Enable();
-        SwitchMode.action.performed += pictureMode;
+        switchMode.action.Enable();
+        switchMode.action.performed += PictureMode;
 
         takePicture.action.Enable();
-        takePicture.action.performed += picture;
+        takePicture.action.performed += Picture;
+
+        openGallery.action.Enable();
+        openGallery.action.performed += ToggleGallery;
+
+        
+
     }
 
     private void OnDisable()
     {
-        SwitchMode.action.performed -= pictureMode;
-        SwitchMode.action.Disable();
+        switchMode.action.performed -= PictureMode;
+        switchMode.action.Disable();
 
-        takePicture.action.performed -= picture;
+        takePicture.action.performed -= Picture;
         takePicture.action.Disable();
     }
 
-    private void pictureMode(InputAction.CallbackContext _ctx)
+    private void PictureMode(InputAction.CallbackContext _ctx)
     {
         Debug.Log("Switch Mode");
-        IsCameraActive = !IsCameraActive;
-        canvasCamera.gameObject.SetActive(IsCameraActive);
+        isCameraActive = !isCameraActive;
+        canvasCamera.gameObject.SetActive(isCameraActive);
     }
 
-    private void picture(InputAction.CallbackContext _ctx)
+    private void Picture(InputAction.CallbackContext _ctx)
     {
         
-        if(IsCameraActive)
+        if(isCameraActive)
         {
+            SavePhoto();
             CheckElement();
         }
     }
@@ -70,9 +93,57 @@ public class PlayerInteraction : MonoBehaviour
                 Debug.Log(col.tag);
                 // Vérification si le tag apparait dans une quetes
                 quest.verifyPhoto(col.tag);
+                
             }
             
         }
+    }
+
+    public void SavePhoto()
+    {
+        // Rendre la caméra dans la RenderTexture
+        photoCamera.targetTexture = renderTexture;
+        photoCamera.Render();
+
+        // Activer la RenderTexture
+        RenderTexture.active = renderTexture;
+
+        // Copier vers Texture2D
+        Texture2D photo = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGB24, false);
+        photo.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        photo.Apply();
+
+        // Nettoyage
+        RenderTexture.active = null;
+
+        // Encoder en PNG
+        byte[] bytes = photo.EncodeToPNG();
+
+        // Dossier Photos
+        string folderPath = Application.persistentDataPath + "/Photos";
+
+        if (!Directory.Exists(folderPath))
+            Directory.CreateDirectory(folderPath);
+
+        string fileName = "Photo_" + System.DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".png";
+        string fullPath = Path.Combine(folderPath, fileName);
+
+        File.WriteAllBytes(fullPath, bytes);
+
+        Debug.Log("Photo sauvegardée : " + fullPath);
+        mainCamera.enabled = true;
+    }
+
+
+
+    // Galerie
+    void ToggleGallery(InputAction.CallbackContext _ctx)
+    {
+        gallery.ToggleGallery();
+
+        // Bloque le joueur
+        playerCameraScript.enabled = !gallery.isOpen;
+
     }
 
     // Debug : affiche la zone de détéction du joueur
