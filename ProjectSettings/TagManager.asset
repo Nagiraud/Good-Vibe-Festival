@@ -12,6 +12,13 @@ TagManager:
   - flee
   - idle
   - NPC
+  - tag_casque
+  - tag_crown
+  - tag_guitare
+  - fruit_corner
+  - pizzeria
+  - book_store
+  - bakery
   layers:
   - Default
   - TransparentFX

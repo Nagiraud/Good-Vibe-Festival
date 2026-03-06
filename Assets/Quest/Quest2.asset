@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Quest2
   m_EditorClassIdentifier: Assembly-CSharp::PhotoQuest
   IsCompleted: 0
-  QuestName: Any Tag
+  QuestName: "De quoi \xE9couter la musique !"
   QuestDescription: N'importe quelle tag
-  TagToSearch: tag_random
+  TagToSearch: tag_casqud
   TimeNeeded: 0
   Recompense: 0

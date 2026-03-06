@@ -111,22 +111,42 @@ public class PeopleController : MonoBehaviour
 
     IEnumerator PlayAnimationThenResume()
     {
-        // 1. Mettre en pause le trajet
-        isPaused = true;
-        navAgent.ResetPath();
-        navAgent.speed = 0;
-
-        // 2. Jouer l'animation selon currentType
         animator.SetBool("IsMoving", false);
-        animator.SetTrigger(currentType); // "idle", "dance" ou "flee"
+        Debug.Log(currentType);
+        switch (currentType)
+        {
+            case "flee":
 
-        Debug.Log("Attente");
-        // 3. Attendre 10 secondes
-        yield return new WaitForSeconds(10f);
+                // Faire courir le personnage
+                navAgent.speed = speed * 2;
+                animator.SetTrigger(currentType);
 
-        // 4. Reprendre le trajet
-        animator.ResetTrigger(currentType);
-        isPaused = false;
+                
+                yield return new WaitForSeconds(10f);
+                navAgent.speed = speed;
+                animator.SetTrigger("default");
+
+                break;
+            default:
+                // 1. Mettre en pause le trajet
+                isPaused = true;
+                navAgent.ResetPath();
+                navAgent.speed = 0;
+
+                
+                // 2. Jouer l'animation selon currentType
+                animator.SetTrigger(currentType); // "idle", "dance" ou "flee"
+
+                // 3. Attendre 10 secondes
+                yield return new WaitForSeconds(10f);
+
+                // 4. Reprendre le trajet
+                animator.SetTrigger("default");
+                isPaused = false;
+                break;
+        }
+
+
     }
 
     Transform GetPositionByName(string name)

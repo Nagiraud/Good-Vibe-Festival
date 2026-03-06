@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
     // Prise Photo
     [Header("Canvas Photo")]
     [SerializeField] private GameObject canvasCamera;
-    [SerializeField] private Camera mainCamera;
+    [SerializeField] private CinemachineCamera mainCamera;
     [SerializeField] private Camera photoCamera;
     [SerializeField] private RenderTexture renderTexture;
 

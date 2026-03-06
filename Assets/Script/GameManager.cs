@@ -1,5 +1,7 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,11 @@ public class GameManager : MonoBehaviour
     [Header("Pause")]
     public GameObject pauseMenuUI;
     public InputActionReference InputPause;
+
+    [Header("Animation")]
+    [SerializeField] private PlayableDirector director;
+    [SerializeField] private Camera playerCamera;    // caméra de jeu
+    [SerializeField] private CinemachineCamera[] cinematicCams; // caméras de la cinématique
     public bool IsPaused { get; set; }
 
     private void Awake()
@@ -40,6 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         RandomPlacementNPC();
+        director.stopped += OnCinematicEnd;
     }
 
     private void RandomPlacementNPC()
@@ -70,5 +78,32 @@ public class GameManager : MonoBehaviour
             pauseMenuUI.SetActive(false);
             AudioListener.pause = false;
         }
+    }
+
+    public void PlayCinematic()
+    {
+        // Désactiver la caméra joueur pendant la cinématique
+        playerCamera.enabled=false;
+
+        // Activer les caméras cinématiques
+        foreach (var cam in cinematicCams)
+            cam.Priority = 20;
+
+        director.Play();
+    }
+
+    private void OnCinematicEnd(PlayableDirector pd)
+    {
+        // Remettre la caméra joueur
+        playerCamera.enabled = true;
+
+        // Désactiver les caméras cinématiques
+        foreach (var cam in cinematicCams)
+            cam.Priority = 0;
+    }
+
+    void OnDestroy()
+    {
+        director.stopped -= OnCinematicEnd;
     }
 }

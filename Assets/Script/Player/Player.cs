@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
 
-        mainCamera = GetComponentInChildren<Camera>()?.transform;
+        mainCamera = GetComponentInChildren<CinemachineCamera>()?.transform;
     }
 
     void Update()
