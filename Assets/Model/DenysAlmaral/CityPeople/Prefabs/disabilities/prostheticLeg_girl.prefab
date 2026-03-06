@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -66,14 +78,20 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6351466006817030885}
+      addedObject: {fileID: -2949186491206308020}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7737904721438965977}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3651876630829507519}
   m_SourcePrefab: {fileID: 100100000, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
 --- !u!1 &4552685038025500937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c84b49838c1acd4cbe63ecc028d64fe, type: 3}
   m_PrefabInstance: {fileID: 3742222159736722520}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6351466006817030885
+--- !u!114 &-2949186491206308020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,7 +100,81 @@ MonoBehaviour:
   m_GameObject: {fileID: 4552685038025500937}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f141628068b9b4493f69f797f003b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 182f22c7dd0c4694aa1407fb58b89949, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  DemoMode: 1
+  m_EditorClassIdentifier: Assembly-CSharp::PeopleController
+  listePosition:
+  - {fileID: 7174559448491592100, guid: e5b1c78fa1b261549802b522d6dda228, type: 3}
+  - {fileID: 166965256108297459, guid: ec9903336cd3d064cbd6fb51c470d1f4, type: 3}
+  - {fileID: 376661626064138728, guid: 5d842cd8751602c4c9df27993e0b3088, type: 3}
+  - {fileID: 6314254660137745399, guid: 2d01be2704501524e83354ad31b2ad37, type: 3}
+  - {fileID: 5997552687448959766, guid: 867100bc2f2f22841945c03fec0eceef, type: 3}
+  - {fileID: 6219903537811515744, guid: 4805e6337ea31a646881d12c711de437, type: 3}
+  - {fileID: 2143074487608796871, guid: 16cc780d55a5af542af8eaa5a3334dd2, type: 3}
+  - {fileID: 4011536686348424764, guid: c10d52bb73b9a41488702c55523e53c7, type: 3}
+  - {fileID: 7526638395023684643, guid: bdb6e9d31f0fe7f458d068dde2f2deb4, type: 3}
+  - {fileID: 4531834696718315880, guid: a3ee7d4fce89d7543a0ef07b3a84c2ca, type: 3}
+  - {fileID: 6844203982807632863, guid: c2618f0c9a6ee3f49907fd89efaed47a, type: 3}
+  - {fileID: 2246891127876386903, guid: 959f77872d957f741b37338e7f6e450f, type: 3}
+  - {fileID: 8248526537300357049, guid: 41c33a1048d780b4787b28469f2f3076, type: 3}
+  - {fileID: 244836501724929753, guid: 1564275d20c48c54fad030e734bfaa50, type: 3}
+  - {fileID: 1113595017026313936, guid: 913a02eb564913e479c3401ef532aee1, type: 3}
+  - {fileID: 8841279030739782107, guid: e00cf82e96361624a8bdfdc2b4dc08b6, type: 3}
+  - {fileID: 3938410211472881277, guid: 88566385b4e8ed045896bb0dcee3f79f, type: 3}
+  - {fileID: 5519535826660417183, guid: 5b58ebc1f0d617148ae8766df8859512, type: 3}
+  - {fileID: 5519535826660417183, guid: 5b58ebc1f0d617148ae8766df8859512, type: 3}
+  - {fileID: 4335090555064408565, guid: dbafd1e42222ae64c80946b6246ce6e6, type: 3}
+  - {fileID: 436680260486049856, guid: 08cf5ce2ac91c1c4ca3d41b075a196d1, type: 3}
+  - {fileID: 1904036164091103224, guid: ab565b1de5a9dfb47a1b5326e9c39f41, type: 3}
+  - {fileID: 3303937894043470729, guid: cb820cf28a216a74aaf49c84606b8a83, type: 3}
+  speed: 2
+  currentType: 
+  typeNPC:
+  - Idle
+  - danse
+  - Flee
+--- !u!195 &-7737904721438965977
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552685038025500937}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!136 &3651876630829507519
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552685038025500937}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.15765448
+  m_Height: 1.6597631
+  m_Direction: 1
+  m_Center: {x: 0.009111291, y: 0.728951, z: -0.05858208}

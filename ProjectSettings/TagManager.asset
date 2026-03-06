@@ -8,6 +8,10 @@ TagManager:
   - object2
   - object3
   - tag_music
+  - dance
+  - flee
+  - idle
+  - NPC
   layers:
   - Default
   - TransparentFX

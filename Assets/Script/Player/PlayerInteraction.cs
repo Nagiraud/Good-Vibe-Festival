@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -75,6 +77,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckElement()
     {
+        int maxDistance = 10;
         Collider[] target = Physics.OverlapSphere(transform.position, 10); // tout les objets à moins de DistaceVision du joueur
         
         foreach (Collider col in target)
@@ -88,14 +91,26 @@ public class PlayerInteraction : MonoBehaviour
 
             // + Raycast pour vérifié que rien ne bloque la vue
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, (col.transform.position - transform.position), out hit, 10) && Mathf.Abs(signedAngle) < 90 / 2)
+            if (Physics.Raycast(transform.position, (col.transform.position - transform.position), out hit, maxDistance) && Mathf.Abs(signedAngle) < 90 / 2)
             {
                 Debug.Log(col.tag);
+
+                // Calcul du score basé sur la distance
+                Vector3 dirToTarget = col.transform.position - transform.position;
+                float distance = dirToTarget.magnitude;
+
+                float normalized = 1 - (distance / maxDistance);
+                int score = Mathf.RoundToInt(normalized * 100);
+
                 // Vérification si le tag apparait dans une quetes
-                quest.verifyPhoto(col.tag);
-                
+                quest.verifyPhoto(col.tag,score);
+
+                //si un pnj est detecté
+                if (col.tag == "NPC")
+                {
+                    col.GetComponent<PeopleController>().AnimateByType();
+                }
             }
-            
         }
     }
 

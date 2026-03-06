@@ -20,16 +20,6 @@ public class PictureGallery : MonoBehaviour
 
     public bool isOpen = false;
     private List<Texture2D> loadedTextures = new List<Texture2D>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // Galerie
     public void ToggleGallery()
@@ -40,14 +30,10 @@ public class PictureGallery : MonoBehaviour
 
         if (isOpen)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             LoadGallery();
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
             ClearGallery();
             CloseFullscreen();
         }

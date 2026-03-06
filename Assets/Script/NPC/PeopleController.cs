@@ -12,56 +12,38 @@ public class PeopleController : MonoBehaviour
     public float speed;
     NavMeshAgent navAgent;
 
-    // Comportement
     [Header("Comportement actuel")]
     public string currentType;
-    // Énumération des comportements possibles
     public string[] typeNPC =
     {
-        "Idle",               // Reste immobile
-        "dance",             // Patrouille entre des points
-        "Flee"              // Fuit le joueur
+        "idle",
+        "dance",
+        "flee"
     };
     Animator animator;
 
-    //private string[] ListeRoutine = ["Stadium", "Building","IntoStadium","Concert1Center","Concert1TopLeft", "Concert1BottomLeft", "Concert1BottomRight", "Concert1TopLeft", "GasStation", "ClothStore", "FriedChicken", "GiftShop", "MusicStore", "FruitCorner", "FastFood", "CoffeeShop", "Bar", "BookStore", "Bakery", "Pizza", "StrangeCorner", "Concert2"];
-    // liste de tous les parcours possible
     List<List<string>> listPath = new List<List<string>>
     {
-        // Parcours 1 : Visite du stade et des commerces environnants
         new List<string> { "Stadium", "GasStation", "FastFood", "MusicStore", "Bar", "BookStore" },
-    
-        // Parcours 2 : Quartier du concert et restauration
         new List<string> { "Concert1Center", "Concert1TopLeft", "Concert1BottomLeft", "Concert1BottomRight", "FriedChicken", "Pizza", "CoffeeShop" },
-    
-        // Parcours 3 : Shopping en ville
         new List<string> { "Building", "ClothStore", "GiftShop", "BookStore", "Bakery", "MusicStore", "FruitCorner" },
-    
-        // Parcours 4 : Soirée détente
         new List<string> { "Bar", "FastFood", "CoffeeShop", "BookStore", "StrangeCorner", "GasStation" },
-    
-        // Parcours 5 : Parcours gourmand
         new List<string> { "Bakery", "Pizza", "FriedChicken", "FruitCorner", "FastFood", "CoffeeShop", "Bar" },
-    
-        // Parcours 6 : Quartier culturel
         new List<string> { "BookStore", "MusicStore", "GiftShop", "Building", "Concert2", "CoffeeShop" },
-    
-        // Parcours 7 : Périple autour du stade
         new List<string> { "Stadium", "IntoStadium", "GasStation", "FastFood", "Bar", "StrangeCorner", "GiftShop" },
-    
-        // Parcours 8 : Avant/après concert
         new List<string> { "Concert1Center", "Concert1TopLeft", "Concert1BottomRight", "FriedChicken", "Pizza", "FastFood", "Bar" },
-    
-        // Parcours 9 : Balade urbaine
         new List<string> { "Building", "ClothStore", "MusicStore", "BookStore", "CoffeeShop", "Bakery", "FruitCorner" },
-    
-        // Parcours 10 : Circuit complet commerces
         new List<string> { "GiftShop", "ClothStore", "BookStore", "MusicStore", "FastFood", "CoffeeShop", "GasStation" }
     };
+
     private int pathChoosen;
     private int actualDestination = 0;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Stocker la référence de la coroutine pour pouvoir la stopper
+    private Coroutine followPathCoroutine;
+    // Flag pour mettre en pause le trajet depuis AnimateByType
+    private bool isPaused = false;
+
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -70,7 +52,7 @@ public class PeopleController : MonoBehaviour
         pathChoosen = Random.Range(0, listPath.Count);
         currentType = typeNPC[Random.Range(0, 3)];
 
-        StartCoroutine(FollowPath());
+        followPathCoroutine = StartCoroutine(FollowPath());
     }
 
     void Update()
@@ -82,7 +64,10 @@ public class PeopleController : MonoBehaviour
     {
         while (true)
         {
-            // Trouver la destination actuelle
+            //  Attendre si en pause (animation en cours)
+            while (isPaused)
+                yield return null;
+
             string destinationName = listPath[pathChoosen][actualDestination];
             Transform target = GetPositionByName(destinationName);
 
@@ -91,32 +76,66 @@ public class PeopleController : MonoBehaviour
                 navAgent.speed = speed;
                 navAgent.SetDestination(target.position);
 
-                // Attendre d'arriver
                 while (navAgent.pathPending || navAgent.remainingDistance > navAgent.stoppingDistance)
                 {
+                    // Si pause déclenchée en cours de route, stopper immédiatement
+                    if (isPaused)
+                    {
+                        navAgent.ResetPath();
+                        break;
+                    }
                     yield return null;
                 }
 
-                // Attendre 5 secondes sur place
-                navAgent.speed = 0;
-                yield return new WaitForSeconds(5f);
+                if (!isPaused)
+                {
+                    navAgent.speed = 0;
+                    yield return new WaitForSeconds(5f);
+                }
             }
 
-            // Destination suivante
-            actualDestination++;
-            if (actualDestination >= listPath[pathChoosen].Count)
+            if (!isPaused)
             {
-                actualDestination = 0; // recommence le parcours
+                actualDestination++;
+                if (actualDestination >= listPath[pathChoosen].Count)
+                    actualDestination = 0;
             }
         }
+    }
+
+    // Appelé depuis l'extérieur pour déclencher une animation 10 secondes
+    public void AnimateByType()
+    {
+        StartCoroutine(PlayAnimationThenResume());
+    }
+
+    IEnumerator PlayAnimationThenResume()
+    {
+        // 1. Mettre en pause le trajet
+        isPaused = true;
+        navAgent.ResetPath();
+        navAgent.speed = 0;
+
+        // 2. Jouer l'animation selon currentType
+        animator.SetBool("IsMoving", false);
+        animator.SetTrigger(currentType); // "idle", "dance" ou "flee"
+
+        Debug.Log("Attente");
+        // 3. Attendre 10 secondes
+        yield return new WaitForSeconds(10f);
+
+        // 4. Reprendre le trajet
+        animator.ResetTrigger(currentType);
+        isPaused = false;
     }
 
     Transform GetPositionByName(string name)
     {
         foreach (GameObject go in listePosition)
         {
-            if (go.name == name) {
-                Debug.Log(go.name+"/"+go.transform.position);
+            if (go.name == name)
+            {
+                Debug.Log(go.name + "/" + go.transform.position);
                 return go.transform;
             }
         }
