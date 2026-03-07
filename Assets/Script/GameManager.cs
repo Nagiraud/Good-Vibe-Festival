@@ -87,7 +87,11 @@ public class GameManager : MonoBehaviour
 
         // Activer les caméras cinématiques
         foreach (var cam in cinematicCams)
+        {
+            cam.enabled = true;
             cam.Priority = 20;
+        }
+            
 
         director.Play();
     }
@@ -99,7 +103,10 @@ public class GameManager : MonoBehaviour
 
         // Désactiver les caméras cinématiques
         foreach (var cam in cinematicCams)
+        {
+            cam.enabled = false;
             cam.Priority = 0;
+        }
     }
 
     void OnDestroy()
