@@ -6,7 +6,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -161,15 +160,4 @@ public class PlayerInteraction : MonoBehaviour
         playerCameraScript.enabled = !gallery.isOpen;
 
     }
-
-    // Debug : affiche la zone de détéction du joueur
-    private void OnDrawGizmos()
-     {
-         Handles.color = new Color(0, 1, 0, 0.3f);
-         Handles.DrawSolidArc(transform.position,
-             transform.up,
-             Quaternion.AngleAxis(-90/2f,transform.up)*transform.forward,// orientation de l'angle de vue devant le professeur (autant à gauche et à droite)
-             90,
-             10);
-     }
 }

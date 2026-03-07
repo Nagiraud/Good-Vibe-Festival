@@ -15,6 +15,6 @@ MonoBehaviour:
   IsCompleted: 0
   QuestName: "De quoi \xE9couter la musique !"
   QuestDescription: N'importe quelle tag
-  TagToSearch: tag_casqud
+  TagToSearch: tag_casque
   TimeNeeded: 0
   Recompense: 0

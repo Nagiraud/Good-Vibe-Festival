@@ -15,6 +15,6 @@ MonoBehaviour:
   IsCompleted: 0
   QuestName: Oui Oui Baguette !
   QuestDescription: Trouver la boulangerie
-  TagToSearch: fruit_corner
+  TagToSearch: bakery
   TimeNeeded: 0
   Recompense: 0

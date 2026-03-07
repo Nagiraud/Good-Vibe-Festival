@@ -15,6 +15,6 @@ MonoBehaviour:
   IsCompleted: 0
   QuestName: Mais que fait une pizzeria ici ?
   QuestDescription: Trouver la pizzeria
-  TagToSearch: fruit_corner
+  TagToSearch: pizzeria
   TimeNeeded: 0
   Recompense: 0
